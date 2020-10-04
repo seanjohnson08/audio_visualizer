@@ -1,13 +1,32 @@
 import RainbowBars from './visualizations/RainbowBars.js';
 import Torus from './visualizations/Torus.js';
 
-requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationFrame || window.webkitAnimationFrame;
+const visualizations = {
+    Torus,
+    RainbowBars
+};
+
+const requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationFrame || window.webkitAnimationFrame;
 
 class Main {
     constructor(audioElement) {
         audioElement.addEventListener('play', () => this._onPlay());
+        this.createVizSelection();
         this.audioElement = audioElement;
         this._boundTick = () => this._tick();
+    }
+
+    createVizSelection() {
+        const select = document.getElementById('viz');
+        Object.keys(visualizations).forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.innerHTML = value;
+            select.appendChild(option);
+        })
+        select.addEventListener('change', () => {
+            this.setVisualization(visualizations[select.value])
+        });
     }
     setVisualization(Visualization) {
         const visualization = new Visualization();
