@@ -1,4 +1,5 @@
 import RainbowBars from './visualizations/RainbowBars.js';
+import Torus from './visualizations/Torus.js';
 
 requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationFrame || window.webkitAnimationFrame;
 
@@ -37,4 +38,4 @@ class Main {
 }
 
 const main = new Main(document.getElementById('music'));
-main.setVisualization(RainbowBars);
+main.setVisualization(Torus);
