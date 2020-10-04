@@ -1,35 +1,40 @@
-const audioContext = window.AudioContext || window.mozAudioContext || window.webkitAudioContext;
-
 import RainbowBars from './visualizations/RainbowBars.js';
 
 requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationFrame || window.webkitAnimationFrame;
 
-const visualizer = new RainbowBars();
-const root = visualizer.getRootElement();
-root.id = 'visualization';
-document.getElementById('visualization').replaceWith(root);
+class Main {
+    constructor(audioElement) {
+        audioElement.addEventListener('play', () => this._onPlay());
+        this.audioElement = audioElement;
+        this._boundTick = () => this._tick();
+    }
+    setVisualization(Visualization) {
+        const visualization = new Visualization();
+        const root = visualization.getRootElement();
+        root.id = 'visualization';
+        document.getElementById('visualization').replaceWith(root);
+        this.visualization = visualization;
+    }
+    _onPlay() {
+        const ctx = new (window.AudioContext || window.mozAudioContext || window.webkitAudioContext);
+        const source = ctx.createMediaElementSource(this.audioElement);
+        const analyzer = ctx.createAnalyser();
 
-// TODO remove globals
-let _analyzer;
-let _frequencyData;
+        source.connect(analyzer);
+        analyzer.connect(ctx.destination);
 
-function _tick() {
-    visualizer.tick(_frequencyData);
-    _analyzer.getByteFrequencyData(_frequencyData);
+        this._analyzer = analyzer;
+        this._frequencyData = new Uint8Array(analyzer.frequencyBinCount / 2);
 
-    requestAnimationFrame(_tick);
+        this._boundTick();
+    }
+    _tick() {
+        this.visualization.tick(this._frequencyData);
+        this._analyzer.getByteFrequencyData(this._frequencyData);
+
+        requestAnimationFrame(this._boundTick);
+    }
 }
-let music = document.getElementById('music');
-music.onplay = function () {
 
-    let ctx = new audioContext;
-    let source = ctx.createMediaElementSource(music);
-    _analyzer = ctx.createAnalyser();
-
-    source.connect(_analyzer);
-    _analyzer.connect(ctx.destination);
-
-    _frequencyData = new Uint8Array(_analyzer.frequencyBinCount / 2);
-
-    _tick();
-};
+const main = new Main(document.getElementById('music'));
+main.setVisualization(RainbowBars);
