@@ -1,8 +1,9 @@
 
 import Visualization from './Visualization.js';
 
-export default class RainbowBars {
+export default class RainbowBars extends Visualization {
     constructor() {
+        super(...arguments);
         this.root = document.createElement('div');
         this.barCount = 1024 / 4;
         this.barWidth = 100 / this.barCount
