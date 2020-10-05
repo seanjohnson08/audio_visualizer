@@ -15,22 +15,30 @@ export default class RainbowBars extends Visualization {
     }
     tick(frequencyData) {
         let p, l = frequencyData.length;
-        let bars = document.querySelectorAll("#visualization div");
+        const { bars } = this;
         for (let i = 0; i < this.barCount; i++) {
             p = (frequencyData[Math.floor(l / this.barCount * i)] / 2.55);
-            bars[i].style.height = p + '%';
-            bars[i].style.backgroundColor = 'hsla(' + (360 * (1.8 - (p / 100))) + ',100%,50%,1)';
+            bars[i].style.height = `${p}%`;
+            bars[i].style.backgroundColor = `hsla(${360 * (1.8 - (p / 100))}, 100%, 50%, 1)`;
         }
     }
 
     _setupBars() {
+        const bars = [];
         //make divs
         for (let i = 0; i < this.barCount; i++) {
-            let div = document.createElement('div');
-            div.style.left = (i * this.barWidth) + '%';
-            div.style.width = (this.barWidth) + "%"
-            div.style.backgroundColor = 'hsla(' + (360 * i / this.barCount) + ',100%,50%,1)';
+            const div = document.createElement('div');
+            Object.assign(div.style, {
+                position: 'absolute',
+                bottom: 0,
+                left: `${i * this.barWidth}%`,
+                width: `${this.barWidth}%`,
+                backgroundColor: `hsla(${360 * i / this.barCount}, 100%, 50%, 1)`,
+            });
             this.root.appendChild(div);
+            bars.push(div);
         }
+
+        this.bars = bars;
     }
 }
