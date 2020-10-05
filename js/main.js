@@ -1,9 +1,11 @@
 import RainbowBars from './visualizations/RainbowBars.js';
 import Torus from './visualizations/Torus.js';
+import VoxelWorld from './visualizations/VoxelWorld.js';
 
 const visualizations = {
+    VoxelWorld,
     Torus,
-    RainbowBars
+    RainbowBars,
 };
 
 const requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationFrame || window.webkitAnimationFrame;
@@ -57,4 +59,4 @@ class Main {
 }
 
 const main = new Main(document.getElementById('music'));
-main.setVisualization(Torus);
+main.setVisualization(VoxelWorld);
