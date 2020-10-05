@@ -4,6 +4,7 @@ import VoxelWorld from './visualizations/VoxelWorld.js';
 
 const visualizations = {
     VoxelWorld,
+    ArcBars,
     Torus,
     RainbowBars,
 };
