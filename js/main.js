@@ -38,6 +38,11 @@ class Main {
         this.visualization = visualization;
     }
     _onPlay() {
+        if (this.connected) {
+            return;
+        }
+        this.connected = true;
+
         const ctx = new (window.AudioContext || window.mozAudioContext || window.webkitAudioContext);
         const source = ctx.createMediaElementSource(this.audioElement);
         const analyzer = ctx.createAnalyser();
