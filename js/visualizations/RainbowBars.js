@@ -26,10 +26,15 @@ export default class RainbowBars extends Visualization {
     _setupBars() {
         //make divs
         for (let i = 0; i < this.barCount; i++) {
-            let div = document.createElement('div');
-            div.style.left = (i * this.barWidth) + '%';
-            div.style.width = (this.barWidth) + "%"
-            div.style.backgroundColor = 'hsla(' + (360 * i / this.barCount) + ',100%,50%,1)';
+            const div = document.createElement('div');
+            Object.assign(div.style, {
+                position: 'absolute',
+                bottom: 0,
+                left: `${i * this.barWidth}%`,
+                width: `${this.barWidth}%`,
+                backgroundColor: `hsla(${360 * i / this.barCount}, 100%, 50%, 1)`,
+            })
+
             this.root.appendChild(div);
         }
     }
