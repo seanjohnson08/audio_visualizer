@@ -6,8 +6,8 @@ export default class ArcBars {
         this.ctx = this.root.getContext("2d");
         this.root.style.transform = "rotate(-0.5turn)"; // Start at left side of circle
 
-        this.barCount = 10;
-        //this.barWidth = 100 / this.barCount
+        this.barCount = 100;
+        
         this._setupBars();
     }
     getRootElement() {
@@ -25,8 +25,6 @@ export default class ArcBars {
 
         for(let i=this.barCount; i > 0; i--){
             p = (frequencyData[Math.floor(l / this.barCount * i)] / 255);
-
-            //console.log(i / (this.root.height / 2));
 
             this.ctx.fillStyle = `hsla(${360 * (1.8 - (i / this.barCount))}, 100%, 50%, 1)`;
             this.ctx.beginPath();
