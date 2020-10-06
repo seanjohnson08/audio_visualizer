@@ -2,61 +2,48 @@ import Visualization from './Visualization.js';
 
 export default class ArcBars {
     constructor() {
-        this.root = document.createElement('svg');
-        this.root.setAttribute("viewBox", "-1,-1,2,2");
-        this.root.style.transform = "rotate(-0.50turn)"; // Start at left side of circle
+        this.root = document.createElement('canvas');
+        this.ctx = this.root.getContext("2d");
+        this.root.style.transform = "rotate(-0.5turn)"; // Start at left side of circle
 
-        this.barCount = 360;
+        this.barCount = 10;
         //this.barWidth = 100 / this.barCount
-        //this._setupBars();
+        this._setupBars();
     }
     getRootElement() {
         return this.root;
     }
 
-    _getCoordinatesForPercent(percent) {
-        const x = Math.cos(2 * Math.PI * percent);
-        const y = Math.sin(2 * Math.PI * percent);
-        return [x, y];
-      }
-
     tick(frequencyData) {
-        
-        while (this.root.firstChild) {
-            this.root.removeChild(this.root.lastChild);
-        }
 
         let p, l = frequencyData.length;
+        this.ctx.clearRect(0, 0, this.root.width, this.root.height);
 
-        for(let i=0; i < this.barCount; i++){
-            //p = (frequencyData[Math.floor(l / this.barCount * i)] / 255);
-            p = .5;
+        for(let i=this.barCount; i > 0; i--){
+            p = (frequencyData[Math.floor(l / this.barCount * i)] / 255);
 
-            let coord = this._getCoordinatesForPercent(p);
-            let endX = coord[0];
-            let endY = coord[1];
+            //console.log(i / (this.root.height / 2));
 
-            let largeArcFlag = p > .5 ? 1 : 0;
-
-            let pathData = [
-                `M 1 0`,
-                `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
-                `L 0 0 `,
-            ].join (' ');
-
-            //console.log(pathData);
-
-            // create a <path> and append it to the <svg> element
-            let pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            pathEl.setAttribute('d', pathData);
-            pathEl.setAttribute('fill', 'red');
-            //pathEl.setAttribute('fill', 'hsla(' + (360 * (1.8 - (p / 100))) + ',100%,50%,1)');
-            this.root.appendChild(pathEl);
+            this.ctx.fillStyle = `hsla(${360 * (1.8 - (i / this.barCount))}, 100%, 50%, 1)`;
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.root.width / 2, this.root.height / 2);
+            // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
+            this.ctx.arc(this.root.width / 2, this.root.height / 2, ((this.root.height/2) / this.barCount)*i, 0, Math.PI * 2 * p, false);
+            this.ctx.lineTo(this.root.width / 2, this.root.height / 2);
+            this.ctx.fill();
         }
     }
 
-    /*
+    
     _setupBars() {
+        this.bars = [];
+
+        for (let i = 0; i < this.barCount; i++) {
+            let bar = {angle: 0};
+            this.bars.push(bar);
+        }
+
+        /*
         //make divs
         for (let i = 0; i < this.barCount; i++) {
             let div = document.createElement('div');
@@ -65,6 +52,6 @@ export default class ArcBars {
             div.style.backgroundColor = 'hsla(' + (360 * i / this.barCount) + ',100%,50%,1)';
             this.root.appendChild(div);
         }
+        */
     }
-    */
 }
