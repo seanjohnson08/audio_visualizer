@@ -7,11 +7,7 @@ export default class ArcBars extends Visualization {
         this.root.style.transform = 'rotate(-0.5turn)'; // Start at left side of circle
 
         this.barCount = 100;
-<<<<<<< HEAD
-        
-=======
         //this.barWidth = 100 / this.barCount
->>>>>>> 3a6e0c2d6ac0600b52b17dc0fe693a18df3528c9
         this._setupBars();
     }
     getRootElement() {
