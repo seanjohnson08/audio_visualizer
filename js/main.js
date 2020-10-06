@@ -1,7 +1,7 @@
 import RainbowBars from './visualizations/RainbowBars.js';
 import Torus from './visualizations/Torus.js';
 import VoxelWorld from './visualizations/VoxelWorld.js';
-import ArcBars from './visualizations/ArcBars';
+import ArcBars from './visualizations/ArcBars.js';
 
 const visualizations = {
     VoxelWorld,
