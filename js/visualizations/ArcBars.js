@@ -17,6 +17,10 @@ export default class ArcBars {
     tick(frequencyData) {
 
         let p, l = frequencyData.length;
+        if (this.root.height != this.root.clientHeight) {
+            this.root.height = this.root.clientHeight;
+            this.root.width = this.root.clientWidth;
+        }
         this.ctx.clearRect(0, 0, this.root.width, this.root.height);
 
         for(let i=this.barCount; i > 0; i--){
@@ -34,7 +38,7 @@ export default class ArcBars {
         }
     }
 
-    
+
     _setupBars() {
         this.bars = [];
 
@@ -42,16 +46,5 @@ export default class ArcBars {
             let bar = {angle: 0};
             this.bars.push(bar);
         }
-
-        /*
-        //make divs
-        for (let i = 0; i < this.barCount; i++) {
-            let div = document.createElement('div');
-            div.style.left = (i * this.barWidth) + '%';
-            div.style.width = (this.barWidth) + "%"
-            div.style.backgroundColor = 'hsla(' + (360 * i / this.barCount) + ',100%,50%,1)';
-            this.root.appendChild(div);
-        }
-        */
     }
 }
