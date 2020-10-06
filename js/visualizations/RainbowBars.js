@@ -34,12 +34,8 @@ export default class RainbowBars extends Visualization {
                 left: `${i * this.barWidth}%`,
                 width: `${this.barWidth}%`,
                 backgroundColor: `hsla(${360 * i / this.barCount}, 100%, 50%, 1)`,
-<<<<<<< HEAD
-            })
-
-=======
             });
->>>>>>> 5f46b736722e0bf8da6aa70a687ba35e5d0edea9
+
             this.root.appendChild(div);
             bars.push(div);
         }
