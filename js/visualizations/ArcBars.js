@@ -26,11 +26,11 @@ export default class ArcBars extends Visualization {
         this.ctx.clearRect(0, 0, this.root.width, this.root.height);
 
         for(let i=this.barCount-1; i >= 0; i--){
-            p = (frequencyData[Math.floor(l / this.barCount * i)] / 255);
+            p = (frequencyData[Math.floor(l / this.barCount * i)] / 510);
             offsetP = p/4;
 
             if(p > this.bars[i].p){
-                p = this.bars[i].p + ((p - this.bars[i].p) * .75)
+                p = this.bars[i].p + ((p - this.bars[i].p) * 1.25)
             } else if (p < this.bars[i].p){
                 p = this.bars[i].p - .01;
                 p = p < 0 ? 0 : p;
