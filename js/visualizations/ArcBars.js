@@ -31,7 +31,6 @@ export default class ArcBars extends Visualization {
 
             if(p > this.bars[i].p){
                 p = this.bars[i].p + ((p - this.bars[i].p) * .75)
-                console.log(p);
             } else if (p < this.bars[i].p){
                 p = this.bars[i].p - .01;
                 p = p < 0 ? 0 : p;
