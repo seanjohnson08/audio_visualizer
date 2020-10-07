@@ -40,9 +40,9 @@ export default class ArcBars extends Visualization {
 
             this.ctx.fillStyle = `hsla(${360 * (1.8 - (i / this.barCount))}, 100%, 50%, 1)`;
             this.ctx.beginPath();
-            this.ctx.moveTo(this.root.width / 2, this.root.height / 2);
-            this.ctx.arc(this.root.width / 2, this.root.height / 2, ((this.root.height/2) / this.barCount)*i, 0, Math.PI * 2 * p, false);
-            this.ctx.lineTo(this.root.width / 2, this.root.height / 2);
+            this.ctx.moveTo(this.root.width / 2, this.root.height * .25);
+            this.ctx.arc(this.root.width / 2, this.root.height * .25, ((this.root.height/2) / this.barCount)*i, 0, Math.PI * 2 * p, false);
+            this.ctx.lineTo(this.root.width / 2, this.root.height * .25);
             this.ctx.fill();
         }
     }
